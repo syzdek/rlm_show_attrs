@@ -35,9 +35,6 @@ VERSION					:= $(shell git describe 2> /dev/null |sed -e 's/^v//g' -e 's/-/./g')
 
 FREERADIUS_SOURCE			?= freeradius-server
 
-DEVEL_FREERADIUS_VERSION		?= 3.2.8
-DEVEL_FREERADIUS_DOWNLOAD_URL		?= https://www.freeradius.org/ftp/pub/freeradius/freeradius-server-$(DEVEL_FREERADIUS_VERSION).tar.gz
-
 MOD_DOC					:= $(FREERADIUS_SOURCE)/doc/modules/rlm_show_attrs
 MOD_CONFIG				:= $(FREERADIUS_SOURCE)/raddb/mods-available/show_attrs
 SITE_CONFIG				:= $(FREERADIUS_SOURCE)/raddb/sites-available/show_attrs
@@ -64,7 +61,9 @@ all:
 	@echo "       make FREERADIUS_SOURCE=../freeradius-server-x.x.x prepare"
 	@echo " "
 
+
 prepare:  $(MOD_DOC) $(MOD_CONFIG) $(SITE_CONFIG) $(ALL_MK) $(MOD_SOURCE)
+
 
 clean: module-clean
 	rm -Rf rlm_show_attrs-$(VERSION)/
