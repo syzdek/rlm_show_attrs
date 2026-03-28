@@ -28,7 +28,7 @@ Module Configuration
    * ___request_attributes___ - include request attributes in debugging
      output. The default is "_true_".
 
-   * ___date_strings__ - display date attributes as a string instead of as a
+   * ___date_strings___ - display date attributes as a string instead of as a
      number representing the seconds since Janyary 1, 1970.  The default is
      "_false_".
 
