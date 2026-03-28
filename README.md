@@ -27,7 +27,11 @@ Module Configuration
 
    * ___request_attributes___ - include request attributes in debugging
      output. The default is "_true_".
-   
+
+   * ___date_strings__ - display date attributes as a string instead of as a
+     number representing the seconds since Janyary 1, 1970.  The default is
+     "_false_".
+
    * ___use_gmtime___ - display _DATE_ attributes as GM time instead of
      as local time.  The default is "_false_".
 
@@ -38,6 +42,7 @@ The following is a example configuration which uses the default values:
          control_attributes   = true
          reply_attributes     = true
          request_attributes   = true
+         date_strings         = false
          use_gmtime           = false
       }
 

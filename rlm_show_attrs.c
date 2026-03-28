@@ -88,6 +88,7 @@ struct rlm_show_attrs_t
 	bool			control_attrs;	//!< print control attributes
 	bool			reply_attrs;	//!< print reply attributes
 	bool			request_attrs;	//!< print request attributes
+	bool			date_strings;	//!< print date attributes as string instead of epoch
 	bool			use_gmtime;     //!< display date attributes as GM time instead of local time
 };
 
@@ -203,6 +204,7 @@ static const CONF_PARSER module_config[] =
 {	{ "reply_attributes",	FR_CONF_OFFSET(PW_TYPE_BOOLEAN,	rlm_show_attrs_t, control_attrs),	"yes" },
 	{ "reply_attributes",	FR_CONF_OFFSET(PW_TYPE_BOOLEAN,	rlm_show_attrs_t, reply_attrs),		"yes" },
 	{ "reply_attributes",	FR_CONF_OFFSET(PW_TYPE_BOOLEAN,	rlm_show_attrs_t, request_attrs),	"yes" },
+	{ "date_strings",	FR_CONF_OFFSET(PW_TYPE_BOOLEAN,	rlm_show_attrs_t, date_strings),	"no" },
 	{ "use_gmtime",		FR_CONF_OFFSET(PW_TYPE_BOOLEAN,	rlm_show_attrs_t, request_attrs),	"no" },
 	CONF_PARSER_TERMINATOR
 };
@@ -470,13 +472,17 @@ rlm_show_attrs_debug_vps(
 
 			// 32 Bit Unix timestamp
 			case PW_TYPE_DATE:
-				t = (time_t)vps->data.date;
-				if ((inst->use_gmtime))
-					gmtime_r(&t, &tm);
-				else
-					localtime_r(&t, &tm);
-				strftime(value, (sizeof(value)-1), "%FT%T%z", &tm);
-				value[sizeof(value)-1] = '\0';
+				if ((inst->date_strings))
+				{ 	t = (time_t)vps->data.date;
+					if ((inst->use_gmtime))
+						gmtime_r(&t, &tm);
+					else
+						localtime_r(&t, &tm);
+					strftime(value, (sizeof(value)-1), "%FT%T%z", &tm);
+					value[sizeof(value)-1] = '\0';
+				} else
+				{ 	snprintf(value, sizeof(value), "%"PRIu32, (uint32_t)vps->data.date);
+				};
 				break;
 
 
