@@ -1,0 +1,24 @@
+#
+#  Attribute Debugging Module for FreeRADIUS
+#
+#  The attribute debugging module for FreeRADIUS prints the values of the
+#  current attributes as debug statements.
+#
+show_attrs {
+	# print control attributes
+	control_attributes = true
+
+	# print reply attributes
+	reply_attributes = true
+
+	# print request attributes
+	request_attributes = true
+
+	# display date attributes as a string instead of as a number
+	# representing the seconds since Janyary 1, 1970
+	date_strings = false
+
+	# display date using GM time instead of local time when printing dates
+	# as a string instead of as a number.
+	use_gmtime = false
+}

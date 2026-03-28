@@ -1,0 +1,42 @@
+#
+#  Example server using Attribute Debugging Module.
+#
+server show-attrs {
+authorize {
+	# obtain the users' TOTP secret from a data store.  If the secret
+	# is base32 encoded, set the secret to "&control:TOTP-Secret". If
+	# the secret is binary, set the secret to "&control:TOTP-Key".
+	-ldap
+	-sql
+
+	show_attrs
+
+	pap
+	chap
+	mschap
+}
+authenticate {
+	Auth-Type PAP {
+		show_attrs
+		pap
+	}
+	Auth-Type CHAP {
+		show_attrs
+		chap
+	}
+	Auth-Type MS-CHAP {
+		show_attrs
+		mschap
+	}
+}
+post-auth {
+	show_attrs
+	Post-Auth-Type REJECT {
+		show_attrs
+	}
+	Post-Auth-Type Challenge {
+		show_attrs
+	}
+}
+
+}
